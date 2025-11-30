@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { X, ZoomIn, ArrowLeft } from "lucide-react"
+import PrismaticBurst from "@/components/PrismaticBurst"
 
 const galleryImages = [
   {
@@ -101,8 +102,25 @@ export default function GalleryPage() {
 
   return (
     <div className="min-h-screen pt-16 bg-[#0A192F]">
-      {/* Hero Section */}
+      {/* Hero Section with PrismaticBurst Background */}
       <section className="relative py-20 overflow-hidden bg-gradient-to-br from-[#0A192F] via-[#1A1A1A] to-[#2D2D2D]">
+        {/* PrismaticBurst Background */}
+        <div className="absolute inset-0 opacity-30">
+          <PrismaticBurst
+            animationType="rotate3d"
+            intensity={1.5}
+            speed={0.3}
+            distort={1.0}
+            paused={false}
+            offset={{ x: 0, y: 0 }}
+            hoverDampness={0.25}
+            rayCount={24}
+            mixBlendMode="lighten"
+            colors={['#14B8A6', '#8B5CF6', '#ffffff']}
+          />
+        </div>
+
+        {/* Original gradient blobs */}
         <div className="absolute inset-0">
           <div className="absolute top-20 left-10 w-72 h-72 bg-[#14B8A6] rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob"></div>
           <div className="absolute bottom-20 right-10 w-72 h-72 bg-[#8B5CF6] rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000"></div>
