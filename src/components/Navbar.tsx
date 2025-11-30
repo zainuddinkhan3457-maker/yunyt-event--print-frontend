@@ -33,6 +33,12 @@ export default function Navbar() {
               Events
             </Link>
             <Link
+              href="/gallery"
+              className="text-gray-300 hover:text-[#14B8A6] transition-colors duration-200"
+            >
+              Gallery
+            </Link>
+            <Link
               href="/print-lab"
               className="text-gray-300 hover:text-[#14B8A6] transition-colors duration-200"
             >
@@ -77,6 +83,13 @@ export default function Navbar() {
               onClick={() => setIsMenuOpen(false)}
             >
               Events
+            </Link>
+            <Link
+              href="/gallery"
+              className="block px-3 py-2 text-gray-300 hover:text-[#14B8A6] hover:bg-[#2D2D2D] rounded-lg transition-colors duration-200"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Gallery
             </Link>
             <Link
               href="/print-lab"

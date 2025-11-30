@@ -61,6 +61,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/gallery" className="text-gray-400 hover:text-[#14B8A6] transition-colors duration-200">
+                  Gallery
+                </Link>
+              </li>
+              <li>
                 <Link href="/print-lab" className="text-gray-400 hover:text-[#14B8A6] transition-colors duration-200">
                   Print Lab
                 </Link>
