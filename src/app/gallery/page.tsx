@@ -1,7 +1,7 @@
 "use client"
 
-import { useState } from "react"
-import { X, ZoomIn } from "lucide-react"
+import { useState, useEffect } from "react"
+import { X, ZoomIn, ArrowLeft } from "lucide-react"
 
 const galleryImages = [
   {
@@ -87,6 +87,17 @@ export default function GalleryPage() {
   const filteredImages = selectedCategory === "All" 
     ? galleryImages 
     : galleryImages.filter(img => img.category === selectedCategory)
+
+  // Close modal with ESC key
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && selectedImage) {
+        setSelectedImage(null)
+      }
+    }
+    window.addEventListener("keydown", handleEscape)
+    return () => window.removeEventListener("keydown", handleEscape)
+  }, [selectedImage])
 
   return (
     <div className="min-h-screen pt-16 bg-[#0A192F]">
@@ -176,23 +187,34 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      {/* Image Modal */}
+      {/* Image Modal - Enhanced with Better Close Options */}
       {selectedImage && (
         <div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-md animate-fade-in"
           onClick={() => setSelectedImage(null)}
         >
           <div className="relative max-w-6xl w-full" onClick={(e) => e.stopPropagation()}>
-            {/* Close Button */}
+            {/* Enhanced Close Button - Top Right */}
             <button
               onClick={() => setSelectedImage(null)}
-              className="absolute -top-12 right-0 w-10 h-10 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/20 transition-colors"
+              className="absolute top-4 right-4 z-10 w-12 h-12 bg-gradient-to-r from-[#14B8A6] to-[#8B5CF6] rounded-full flex items-center justify-center hover:scale-110 transition-all duration-300 shadow-lg shadow-[#14B8A6]/50"
+              aria-label="Close image"
             >
-              <X size={20} className="text-white" />
+              <X size={24} className="text-white" />
+            </button>
+
+            {/* Back Button - Top Left */}
+            <button
+              onClick={() => setSelectedImage(null)}
+              className="absolute top-4 left-4 z-10 flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full hover:bg-white/20 transition-all duration-300 text-white font-medium"
+              aria-label="Go back to gallery"
+            >
+              <ArrowLeft size={20} />
+              <span className="hidden sm:inline">Back to Gallery</span>
             </button>
 
             {/* Image */}
-            <div className="relative rounded-2xl overflow-hidden">
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <img
                 src={selectedImage.src}
                 alt={selectedImage.title}
@@ -204,6 +226,7 @@ export default function GalleryPage() {
             <div className="mt-6 text-center">
               <h3 className="text-2xl font-bold text-white mb-2">{selectedImage.title}</h3>
               <p className="text-[#14B8A6] text-lg">{selectedImage.category}</p>
+              <p className="text-gray-400 text-sm mt-2">Press ESC or click outside to close</p>
             </div>
           </div>
         </div>
